@@ -9,12 +9,17 @@ class Note {
   String text;
   Color color;
 
-  Note({this.id,
-        this.createdTime,
-        this.editedTime,
-        this.title,
-        this.text,
-        this.color});
+  Note(
+      {this.id,
+      this.createdTime,
+      this.editedTime,
+      this.title,
+      this.text,
+      this.color}) {
+    this.createdTime ??= DateTime.now().toLocal();
+    this.editedTime ??= DateTime.now().toLocal();
+    this.color ??= Color(0xFFFFFFFF);
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -25,5 +30,4 @@ class Note {
       'color': color.value
     };
   }
-
 }
