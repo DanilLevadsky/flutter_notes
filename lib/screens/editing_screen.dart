@@ -169,14 +169,14 @@ class _EditingScreenState extends State<EditingScreen> {
           ),
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: colors.length,
+            itemCount: kColors.length,
             itemBuilder: (context, index) {
               return ColorButton(
-                color: colors[index],
+                color: kColors[index],
                 radius: 45.0,
                 onTap: () {
                   setState(() {
-                    this.color = colors[index];
+                    this.color = kColors[index];
                   });
                 },
               );
@@ -187,21 +187,4 @@ class _EditingScreenState extends State<EditingScreen> {
     );
   }
 
-  static const colors = [
-    Color(0xFFF2D7D5),
-    Color(0xFFF5B7B1),
-    Color(0xFFD7BDE2),
-    Color(0xFFA9CCE3),
-    Color(0xFFA3E4D7),
-    Color(0xFFF9E79F),
-    Color(0xFFF5CBA7),
-    Color(0xFFE5E7E9),
-    Color(0xFFF1948A),
-    Color(0xFFEAF2F8),
-    Color(0xFFF5CBA7),
-    Color(0xFFCD6155),
-    Color(0xFFF7DC6F),
-    Color(0xFFCCD1D1),
-    Color(0xFF808B96),
-  ];
 }

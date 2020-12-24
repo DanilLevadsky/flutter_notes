@@ -77,3 +77,21 @@ final kNoteTextStyle = TextStyle(
     fontWeight: FontWeight.w400,
     fontSize: 18.0,
     fontFamily: 'Dosis');
+
+const kColors = [
+  Color(0xFFF2D7D5),
+  Color(0xFFF5B7B1),
+  Color(0xFFD7BDE2),
+  Color(0xFFA9CCE3),
+  Color(0xFFA3E4D7),
+  Color(0xFFF9E79F),
+  Color(0xFFF5CBA7),
+  Color(0xFFE5E7E9),
+  Color(0xFFF1948A),
+  Color(0xFFEAF2F8),
+  Color(0xFFF5CBA7),
+  Color(0xFFCD6155),
+  Color(0xFFF7DC6F),
+  Color(0xFFCCD1D1),
+  Color(0xFF808B96),
+];
