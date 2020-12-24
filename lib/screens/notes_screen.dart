@@ -60,7 +60,10 @@ class _NotesScreenState extends State<NotesScreen> {
           Icons.add,
           color: Colors.black,
         ),
-        backgroundColor: Colors.amber[200],
+        backgroundColor: kBackgroundColor,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(width: 2.0, color: Colors.black),
+            borderRadius: BorderRadius.all(Radius.circular(50.0))),
         elevation: 15.0,
         onPressed: () {
           Navigator.pushNamed(context, EditingScreen.id);

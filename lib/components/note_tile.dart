@@ -23,17 +23,19 @@ class NoteTile extends StatelessWidget {
             Divider(
               thickness: 3.0,
               height: 7.0,
-              color: Color(0x11121212),
+              color: Color(0x40222222),
             ),
             Text(
               note.text,
               style: kNoteTextStyle,
             ),
-            Divider(thickness: 3.0, height: 7.0, color: Color(0x11121212)),
+            SizedBox(
+              height: 8.0,
+            ),
             Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                note.editedTime.toString(),
+                note.editedTime.toString() ?? '',
                 style: kNoteTextStyle,
               ),
             )

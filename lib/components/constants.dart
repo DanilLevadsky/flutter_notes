@@ -28,6 +28,7 @@ final kLoginTextFieldDecoration = InputDecoration(
 
 final kTyperText = TyperAnimatedTextKit(
     text: ['Notes'],
+    isRepeatingAnimation: false,
     speed: Duration(milliseconds: 1000),
     textStyle: TextStyle(
         fontSize: 50.0, fontWeight: FontWeight.w700, fontFamily: 'BreeSerif'));

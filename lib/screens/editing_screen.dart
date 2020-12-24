@@ -93,7 +93,6 @@ class _EditingScreenState extends State<EditingScreen> {
                         'editedTime':
                             DateFormat('dd-MM-yyyy').format(DateTime.now())
                       });
-                      Navigator.pop(context);
                     } else {
                       firestore.collection(user.email).add({
                         'title': this.title,
@@ -102,9 +101,11 @@ class _EditingScreenState extends State<EditingScreen> {
                         'editedTime':
                             DateFormat('dd-MM-yyyy').format(DateTime.now())
                       });
-                      Navigator.pop(context);
                     }
-                  } catch (e) {}
+                    Navigator.pop(context);
+                  } catch (e) {
+                    print(e);
+                  }
                 }
               },
               child: Icon(Icons.check, color: Colors.black, size: 35.0),
@@ -186,14 +187,16 @@ class _EditingScreenState extends State<EditingScreen> {
     );
   }
 
-  var colors = [
-    Color(0xFFBD8DEA),
+  static const colors = [
+    Color(0xFFDAB9FE),
     Color(0xFFFF7878),
     Color(0xFF9CE881),
     Color(0xFFA4A4F4),
     Color(0xFFA4EFF4),
     Color(0xFFF7EFB4),
     Color(0xFFFDB9B9),
-    Color(0xFFFB62F2)
+    Color(0xFFB9D5FE),
+    Color(0xFFFDFEB9),
+    Color(0xFFFAB9FE)
   ];
 }
