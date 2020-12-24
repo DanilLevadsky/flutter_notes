@@ -42,12 +42,16 @@ class _NotesScreenState extends State<NotesScreen> {
       appBar: AppBar(
         shadowColor: Colors.black,
         leading: FlatButton(
-            child: Icon(
-              Icons.arrow_back_ios_rounded,
-              color: Colors.black,
-              size: 35.0,
-            ),
-            onPressed: () => Navigator.of(context).pop()),
+          child: Icon(
+            Icons.logout,
+            color: Colors.black,
+            size: 35.0,
+          ),
+          onPressed: () async {
+            await _auth.signOut();
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
+        ),
         title: Text(
           'Notes',
           style: kButtonTextStyle,
@@ -70,19 +74,24 @@ class _NotesScreenState extends State<NotesScreen> {
         },
       ),
       body: StreamBuilder(
-        stream: _firestore.collection(this.loggedInUser.email).orderBy(
-            'editedTime', descending: true).snapshots(),
+        stream: _firestore
+            .collection(this.loggedInUser.email)
+            .orderBy('editedTime', descending: true)
+            .snapshots(),
         builder: (context, snapshot) {
           return !snapshot.hasData
-              ? Center(child: Text('Empty', style: kTitleTextStyle,),)
+              ? Center(
+            child: Text(
+              'Empty',
+              style: kTitleTextStyle,
+            ),
+          )
               : ListView.builder(
             itemBuilder: (context, index) {
               var document = snapshot.data.documents[index].data();
               return Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: 15.0,
-                    vertical: 10.0
-                ),
+                    horizontal: 15.0, vertical: 10.0),
                 child: NoteTile(
                   note: Note(
                     title: document['title'],
@@ -93,15 +102,20 @@ class _NotesScreenState extends State<NotesScreen> {
                     editedTime: document['editedTime'],
                   ),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) =>
-                            EditingScreen.load(note: Note(
-                                title: document['title'],
-                                text: document['text'],
-                                color: Color(
-                                  int.parse(document['color']),
-                                )), noteId: snapshot.data.documents[index].id,)
-                    ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                EditingScreen.load(
+                                  note: Note(
+                                      title: document['title'],
+                                      text: document['text'],
+                                      color: Color(
+                                        int.parse(document['color']),
+                                      )),
+                                  noteId:
+                                  snapshot.data.documents[index].id,
+                                )));
                   },
                 ),
               );
@@ -112,5 +126,4 @@ class _NotesScreenState extends State<NotesScreen> {
       ),
     );
   }
-
 }
