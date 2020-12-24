@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:notes_flutter/components/constants.dart';
 import 'package:notes_flutter/screens/editing_screen.dart';
 import 'package:notes_flutter/screens/home_page.dart';
 import 'package:notes_flutter/screens/login_screen.dart';
@@ -12,8 +13,7 @@ void main() async {
   runApp(
       MaterialApp(
     theme: ThemeData(
-      backgroundColor: Colors.lime[100],
-    ),
+        backgroundColor: kBackgroundColor),
     debugShowCheckedModeBanner: false,
     initialRoute: HomePage.id,
     routes: {

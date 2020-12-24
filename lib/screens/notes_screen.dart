@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:notes_flutter/components/constants.dart';
+import 'package:notes_flutter/components/note.dart';
+import 'package:notes_flutter/components/note_tile.dart';
 import 'package:notes_flutter/screens/editing_screen.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -64,38 +66,48 @@ class _NotesScreenState extends State<NotesScreen> {
           Navigator.pushNamed(context, EditingScreen.id);
         },
       ),
-      body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: double.infinity),
-          itemBuilder: (context, id) {
-            return StreamBuilder(
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                final note = snapshot.data.docs;
-                return Container(
-                  color: Color(int.parse(note.data()['color'])),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Text(note.data()['title']),
-                        flex: 1,
-                      ),
-                      Expanded(
-                        child: Text(note.data()['text']),
-                        flex: 5,
-                      )
-                    ],
+      body: StreamBuilder(
+        stream: _firestore.collection(this.loggedInUser.email).orderBy(
+            'editedTime', descending: true).snapshots(),
+        builder: (context, snapshot) {
+          return !snapshot.hasData
+              ? Center(child: Text('Empty', style: kTitleTextStyle,),)
+              : ListView.builder(
+            itemBuilder: (context, index) {
+              var document = snapshot.data.documents[index].data();
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 15.0,
+                    vertical: 10.0
+                ),
+                child: NoteTile(
+                  note: Note(
+                    title: document['title'],
+                    text: document['text'],
+                    color: Color(
+                      int.parse(document['color']),
+                    ),
+                    editedTime: document['editedTime'],
                   ),
-                );
-              },
-              stream: _firestore.collection('notes').snapshots(),
-            );
-          }),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>
+                            EditingScreen.load(note: Note(
+                                title: document['title'],
+                                text: document['text'],
+                                color: Color(
+                                  int.parse(document['color']),
+                                )), noteId: snapshot.data.documents[index].id,)
+                    ));
+                  },
+                ),
+              );
+            },
+            itemCount: snapshot.data.documents.length,
+          );
+        },
+      ),
     );
   }
-}
 
+}

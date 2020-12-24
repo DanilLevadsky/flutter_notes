@@ -41,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onChanged: (value) {
                     email = value;
                   },
-                  decoration: kTextFieldDecoration.copyWith(
+                  decoration: kLoginTextFieldDecoration.copyWith(
                       hintText: 'Enter your e-mail'),
                 ),
                 SizedBox(
@@ -54,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onChanged: (value) {
                     password = value;
                   },
-                  decoration: kTextFieldDecoration.copyWith(
+                  decoration: kLoginTextFieldDecoration.copyWith(
                       hintText: 'Enter your password'),
                 ),
                 SizedBox(
